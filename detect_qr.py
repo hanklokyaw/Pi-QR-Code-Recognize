@@ -24,7 +24,7 @@ picam2.start()
 time.sleep(1)
 
 # Set controls for camera
-picam2.set_controls({"AfMode": 0, "LensPosition": 425})
+picam2.set_controls({"AfMode": 2, "AfTrigger": 0})
 
 # Initialize variables to store barcode values
 first_barcode = None
