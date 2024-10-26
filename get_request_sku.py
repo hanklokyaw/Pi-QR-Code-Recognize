@@ -1,4 +1,30 @@
 import requests
+from RPLCD.i2c import CharLCD
+
+
+lcd = CharLCD(i2c_expander='PCF8574', address=0x27, port=1, cols=20, rows=4, dotsize=8)
+lcd.clear()
+
+# Initialize two LCDs with unique addresses
+lcd1 = CharLCD(i2c_expander='PCF8574', address=0x27, port=1, cols=20, rows=4, dotsize=8)
+lcd2 = CharLCD(i2c_expander='PCF8574', address=0x3F, port=1, cols=20, rows=4, dotsize=8)
+
+def display_on_lcds(text1, text2):
+    # Clear both LCDs
+    lcd1.clear()
+    lcd2.clear()
+
+    # Write to lcd1
+    lcd1.cursor_pos = (0, 0)
+    lcd1.write_string(text1[:20])  # Ensure text fits in 20 characters
+    lcd1.cursor_pos = (1, 0)
+    lcd1.write_string(text1[20:40])
+
+    # Write to lcd2
+    lcd2.cursor_pos = (0, 0)
+    lcd2.write_string(text2[:20])
+    lcd2.cursor_pos = (1, 0)
+    lcd2.write_string(text2[20:40])
 
 # Function to fetch SKU data
 def fetch_sku_data(sku):
